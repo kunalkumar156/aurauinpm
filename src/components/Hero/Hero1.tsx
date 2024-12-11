@@ -6,7 +6,7 @@ const commonStyles = {
     "inline-flex items-center justify-center px-6 py-2 text-base font-semibold text-white transition-all duration-200 bg-gray-900 rounded-lg sm:text-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900",
   navLink:
     "text-base font-medium text-gray-900 transition-all duration-200 hover:text-indigo-600",
-  card: "overflow-hidden w-[290px] lg:w-[420px] transition-all duration-200 transform bg-white border border-gray-200 rounded-2xl hover:shadow-lg hover:-translate-y-1",
+  card: "overflow-hidden w-[300px] lg:w-[420px] transition-all duration-200 transform bg-white border border-gray-200 rounded-2xl hover:shadow-lg hover:-translate-y-1",
 };
 
 const links = ["Features", "Pricing", "Support"];
