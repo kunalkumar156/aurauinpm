@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import SourceCodeViewer from "../../utils/SourceCodeViewer"; // Ensure this path is correct
+import SourceCodeViewer from "../../utils/SourceCodeViewer";
 import { LuArrowUpRight } from "react-icons/lu";
 import { CgWebsite } from "react-icons/cg";
 import { FaCode } from "react-icons/fa6";
+import NpmCLI from "./NpmCLI";
 
 const TOGGLE_CLASSES =
   "text-sm font-medium flex items-center justify-center px-6 py-2 transition-colors relative z-10";
@@ -13,6 +14,7 @@ type ElementWrapperProps = {
   element: React.ReactNode;
   componentPath: string;
   previewLink?: string;
+  npmInstallCommand?: string;
 };
 
 const ElementWrapper: React.FC<ElementWrapperProps> = ({
@@ -20,6 +22,7 @@ const ElementWrapper: React.FC<ElementWrapperProps> = ({
   componentPath,
   previewLink,
   type,
+  npmInstallCommand,
 }) => {
   const tabs =
     type === "loading"
@@ -54,7 +57,7 @@ const ElementWrapper: React.FC<ElementWrapperProps> = ({
     tabs.reduce((acc, tab) => {
       acc[tab.name] = React.createRef();
       return acc;
-    }, {} as { [key: string]: React.RefObject<HTMLButtonElement> })
+    }, {} as { [key: string]: React.RefObject<HTMLButtonElement> }),
   );
 
   useEffect(() => {
@@ -74,6 +77,7 @@ const ElementWrapper: React.FC<ElementWrapperProps> = ({
   };
 
   const selectedTab = tabs.find((tab) => tab.name === selected);
+  const componentName = componentPath.split("/").pop()?.replace(".tsx", "");
 
   return (
     <div className="flex flex-col items-left">
@@ -112,6 +116,10 @@ const ElementWrapper: React.FC<ElementWrapperProps> = ({
            <LuCircleDollarSign className="w-4 h-4 mr-2" />
            Free component
          </div> */}
+
+            <div>
+              {componentName && <NpmCLI componentName={componentName} />}
+            </div>
             <button
               className={`rounded-lg md:block hidden dark:bg-customDark bg-gray-200 text-gray-600 dark:text-gray-400 `}
               onClick={handleLinkClick}
@@ -147,7 +155,9 @@ const CodeComponent: React.FC<CodeComponentProps> = ({ componentPath }) => (
   </div>
 );
 
-const PreviewComponent: React.FC<{ element: React.ReactNode }> = ({ element }) => (
+const PreviewComponent: React.FC<{ element: React.ReactNode }> = ({
+  element,
+}) => (
   <div className="border-2 border-gray-100 dark:border-customDark rounded-2xl overflow-hidden">
     <div className="h-8 dark:bg-customDark px-4 flex items-center space-x-2 bg-gray-100">
       <div className="w-3 h-3 dark:bg-black bg-gray-300 rounded-full" />
